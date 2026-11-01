@@ -1,0 +1,30 @@
+{
+  "name": "og-preview",
+  "version": "1.0.0",
+  "description": "Test Open Graph, Twitter Card and social-link meta tags fully offline: feed it a URL (localhost works) or an HTML file and get a report with mocked preview cards for Telegram, X/Twitter, Facebook, Discord, Slack, WhatsApp, LinkedIn, Reddit and iMessage plus rule-violation findings. No third-party API.",
+  "author": {
+    "name": "Pavel Rykov",
+    "email": "paul@drteam.rocks",
+    "url": "https://t.me/evilfreelancer"
+  },
+  "homepage": "https://github.com/EvilFreelancer/og-preview",
+  "repository": "https://github.com/EvilFreelancer/og-preview",
+  "license": "MIT",
+  "keywords": [
+    "open-graph",
+    "twitter-card",
+    "link-preview",
+    "seo",
+    "meta-tags",
+    "testing",
+    "offline"
+  ],
+  "skills": "./",
+  "interface": {
+    "displayName": "og-preview",
+    "shortDescription": "Offline OG/Twitter-card checker that renders mocked previews for nine platforms.",
+    "developerName": "Pavel Rykov",
+    "category": "Developer Tools",
+    "websiteURL": "https://github.com/EvilFreelancer/og-preview"
+  }
+}

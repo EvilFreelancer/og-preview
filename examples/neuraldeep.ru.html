@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)" />
+
+    <!-- Анти-FOUC: ставим .dark на <html> ДО рендера React, иначе мигнёт
+         светлая тема перед тем как theme.ts успеет применить сохранённую. -->
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("neuraldeep-theme");
+          var sysDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+          var dark = t === "dark" || (t == null && sysDark);
+          if (dark) document.documentElement.classList.add("dark");
+        } catch (e) { /* SSR/private mode */ }
+      })();
+    </script>
+
+    <!-- Анти-FOUC #2. Server-side fallback внутри #root нужен только краулерам и
+         LLM без JS (он остаётся в HTML-исходнике, они читают разметку). У людей
+         createRoot заменит #root на React, а до монтирования прячем fallback,
+         иначе на загрузке и F5 мигает текстовая подложка. Сигнатура max-width:760px
+         та же, что у fallback'ов в scripts/prerender-meta.mjs и ops/eu-edge/en-index.py,
+         поэтому одно правило прячет и пререндер-роуты, и .tech-зеркало.
+         Второй ключ - атрибут data-ssr-fallback (13.09.26): любой скрипт или
+         расширение браузера, тронувшее .style элемента, пересериализует атрибут
+         style ("max-width: 760px;" с пробелом), и селектор по префиксу перестаёт
+         матчить - подложка мигает до монтирования React. Атрибут такой правке
+         не подвержен. Маршруты кабинета (cabinetPaths в src/seo/meta.json)
+         подложку не несут вовсе: им nginx отдаёт dist/cabinet.html с пустым
+         #root (scripts/seo-html.mjs). -->
+    <style>
+      #root > main[data-ssr-fallback],
+      #root > main[style^="max-width:760px"] { display: none !important; }
+    </style>
+
+    <!-- Единая платформенная полоса экосистемы (shared/platform-bar, GENERATED-копия в public/).
+         ?v= штампует scripts/sync-platform-bar.sh -->
+    <script type="module" src="/platform-bar.js?v=57d2c36e"></script>
+
+    <!-- Primary. Title/description = src/seo/meta.json ("/"), держать в синхроне:
+         это статический слой для краулеров/LLM без JS; TitleSync и prerender-meta.mjs
+         берут те же строки из meta.json. -->
+    <title>NeuralDeep — LLM-прокси для агентов и проектов: OpenAI-совместимый API на своих GPU</title>
+    <meta name="description" content="Прокси к LLM для ваших агентов, ботов и RAG-пайплайнов: OpenAI-совместимый API, один base_url и sk-ключ. qwen3.6, qwen3.8, embeddings, whisper — на своих GPU в РФ; gpt-oss, Gemma 4, Kimi, GLM, DeepSeek — через внешних вендоров. Оплата в рублях, без VPN и зарубежных карт." />
+    <meta name="keywords" content="LLM прокси, LLM прокси Россия, LLM прокси РФ, прокси для агентов, прокси для LLM-агента, API для AI-агента, прокси для Cursor, прокси для Cline, LLM API Россия, API нейросетей Россия, OpenAI-совместимый API, LLM gateway, нейросети без VPN, оплата в рублях, self-hosted LLM РФ, доступ к нейросетям из России, gpt-oss, qwen3.6, Gemma, Kimi, GLM, DeepSeek, embeddings, whisper, AI-агент, RAG, 152-ФЗ" />
+    <link rel="canonical" href="https://neuraldeep.ru/" />
+    <link rel="alternate" hreflang="ru" href="https://neuraldeep.ru/" />
+    <link rel="alternate" hreflang="en" href="https://neuraldeep.ru/en" />
+    <link rel="alternate" hreflang="x-default" href="https://neuraldeep.ru/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="NeuralDeep Hub" />
+    <meta property="og:title" content="LLM-прокси для ваших агентов и проектов" />
+    <meta property="og:description" content="Один base_url и один sk-ключ вместо зоопарка провайдеров: модели, AI-агент, поиск, OCR и картинки. Свои GPU в РФ, оплата в рублях, без VPN и зарубежных карт." />
+    <meta property="og:url" content="https://neuraldeep.ru/" />
+    <meta property="og:image" content="https://neuraldeep.ru/og.png?v=5" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="NeuralDeep Hub — LLM-прокси для агентов и проектов" />
+    <meta property="og:locale" content="ru_RU" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="LLM-прокси для ваших агентов и проектов" />
+    <meta name="twitter:description" content="Один base_url и один sk-ключ вместо зоопарка провайдеров: модели, AI-агент, поиск, OCR и картинки. Свои GPU в РФ, без VPN." />
+    <meta name="twitter:image" content="https://neuraldeep.ru/og.png?v=5" />
+
+    <!-- Telegram (использует OG) -->
+
+    <!-- Favicon + Apple touch — ND-монограмма, самодостаточная тёмная плитка (ОК на чёрном и белом) -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=2" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png?v=2" />
+    <link rel="shortcut icon" href="/favicon.ico?v=2" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2" />
+
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://api.neuraldeep.ru" />
+
+    <!-- JSON-LD: Organization + WebSite + WebApplication единым @graph.
+         Entity-consistency с skillsbd (services/skillsbd/web/src/app/layout.tsx):
+         те же sameAs, тот же бренд «NeuralDeep». en-index.py (.tech) заменяет блок
+         целиком — при правке синхронить JSONLD_EN в ops/eu-edge/en-index.py. -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://neuraldeep.ru/#org",
+          "name": "NeuralDeep",
+          "url": "https://neuraldeep.ru/",
+          "logo": "https://neuraldeep.ru/logo.png",
+          "sameAs": [
+            "https://github.com/vakovalskii",
+            "https://t.me/neuraldeep"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://neuraldeep.ru/#website",
+          "url": "https://neuraldeep.ru/",
+          "name": "NeuralDeep Hub",
+          "inLanguage": "ru",
+          "publisher": { "@id": "https://neuraldeep.ru/#org" }
+        },
+        {
+          "@type": "WebApplication",
+          "@id": "https://neuraldeep.ru/#app",
+          "name": "NeuralDeep Hub",
+          "description": "LLM-прокси и OpenAI-совместимый API к нейросетям: qwen3.6, qwen3.8, embeddings и whisper — на собственных self-hosted GPU в РФ, gpt-oss-120b, Gemma 4 и Kimi K2.6 — через внешних вендоров. Подписка вместо посуточного счёта за токены — плюс AI-агент и поиск.",
+          "url": "https://neuraldeep.ru/",
+          "applicationCategory": "DeveloperApplication",
+          "operatingSystem": "Any",
+          "offers": [
+            {
+              "@type": "Offer",
+              "name": "Free",
+              "price": "0",
+              "priceCurrency": "RUB",
+              "description": "Бесплатный тариф: открытые модели (qwen3.6, gpt-oss-120b), OpenAI-совместимый API, 150 запросов / 3 часа"
+            },
+            {
+              "@type": "Offer",
+              "name": "Starter",
+              "price": "2500",
+              "priceCurrency": "RUB",
+              "description": "2500 ₽/мес: все модели тарифа, Kimi K2.6, повышенные лимиты"
+            },
+            {
+              "@type": "Offer",
+              "name": "Pro",
+              "price": "4900",
+              "priceCurrency": "RUB",
+              "description": "4900 ₽/мес: максимальные лимиты, Kimi K2.6 с расширенным бюджетом"
+            }
+          ],
+          "author": { "@id": "https://neuraldeep.ru/#org" }
+        }
+      ]
+    }
+    </script>
+    <script type="module" crossorigin src="/assets/index-DM8HobyO.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CGrUaScP.css">
+  </head>
+  <body>
+    <!-- Платформенная полоса — ВНЕ #root (React заменяет только #root), покрывает все роуты SPA -->
+    <!-- no-radio (27.10.26): своя музыка остановлена, радио крутит накопленное — кнопку эфира
+         в шапке Hub не показываем. Само радио живо на neuraldeep.ru/neradio. -->
+    <nd-platform-bar current="hub" no-radio></nd-platform-bar>
+    <!--
+      Контент внутри #root — это server-side fallback для краулеров и AI-агентов
+      (ChatGPT/Perplexity/GPTBot, наш ExtractPageTool и т.п.), которые НЕ исполняют JS.
+      Vite монтирует React через createRoot().render() → этот блок мгновенно
+      ЗАМЕНЯЕТСЯ реальным лендингом у JS-юзеров (без hydration-mismatch). Без него
+      агент видел ~173 символа и достраивал неверную картину (см. баг f0bed0ab).
+      GEO: держать в синхроне с Landing.tsx и public/llms-full.txt при смене позиционирования.
+    -->
+    <div id="root">
+      <main style="max-width:760px;margin:0 auto;padding:48px 24px;font-family:system-ui,sans-serif;line-height:1.6;color:#e7e9ee;background:#08090C" data-ssr-fallback>
+        <h1>NeuralDeep — LLM-прокси для ваших агентов и проектов</h1>
+        <p><strong>Что это:</strong> единый OpenAI-совместимый <strong>API к языковым моделям (LLM)</strong>:
+        qwen, эмбеддинги, реранк и whisper развёрнуты на собственных GPU в РФ, остальной каталог идёт
+        через внешних вендоров (регион обработки помечен у каждой модели).
+        Это <strong>LLM-прокси/шлюз и платформа</strong> — НЕ генератор
+        картинок и НЕ 3D-сервис. Один <code>sk-</code> ключ, base URL <code>https://api.neuraldeep.ru/v1</code>,
+        совместим с OpenAI SDK, opencode, Cursor, Cline, Continue, LangChain и любыми OpenAI-клиентами —
+        свои агенты и боты подключаются без переписывания кода. Оплата в рублях, без VPN и зарубежных карт.</p>
+        <p><strong>Чем отличается от перепродавцов токенов:</strong> основные модели крутятся на нашем
+        собственном железе (не реселл зарубежного API), и данные по ним остаются на нашей инфраструктуре
+        (152-ФЗ); оплата — <strong>месячной подпиской</strong>, а не посуточным счётом за токены.</p>
+
+        <h2>Модели</h2>
+        <ul>
+          <li><strong>DaisyGPT</strong> (на базе Qwen 3.6, 35B-A3B) — чат, инструменты, reasoning, vision, 256k контекст</li>
+          <li><strong>GPT-OSS 120B</strong> — чат, инструменты, reasoning, 131k контекст · внешний вендор, обработка вне РФ</li>
+          <li><strong>Gemma 4 31B</strong> — чат, мультимодальность, 262k контекст · внешний вендор, обработка вне РФ</li>
+          <li><strong>Kimi K2.6</strong> — внешняя топовая модель (платные тарифы)</li>
+          <li><strong>Embeddings</strong>: e5-large, bge-m3, jina-v4, GigaEmbeddings · <strong>Rerank</strong>: bge-reranker · <strong>Whisper</strong>: транскрипция аудио</li>
+        </ul>
+        <p>На <strong>бесплатном тарифе</strong> доступны только открытые модели — <strong>DaisyGPT (Qwen 3.6)</strong>
+        и <strong>GPT-OSS 120B</strong>. Премиум-модели (GLM, DeepSeek, MiniMax, Kimi — до 1M контекста) —
+        по подписке или с оплатой по токенам (кошелёк PAYG).</p>
+
+        <h2>Сервисы платформы</h2>
+        <ul>
+          <li><strong>LLM API</strong> — chat, embeddings, rerank, transcription, vision</li>
+          <li><strong>Drift</strong> — персональный AI-агент с памятью, песочницей для кода и Telegram</li>
+          <li><strong>Search API</strong> — веб- и Telegram-поиск, краулинг</li>
+          <li><strong>SpeechCore</strong> — транскрипция длинных аудио/видео (WhisperX) + синтез речи (TTS)</li>
+          <li><strong>OCR API</strong> — PDF/скан → markdown</li>
+          <li><strong>Image API</strong> — генерация/апскейл/удаление фона</li>
+        </ul>
+
+        <h2>Разделы сайта</h2>
+        <ul>
+          <li><a href="https://neuraldeep.ru/models">Модели и функции</a> · <a href="https://neuraldeep.ru/pricing">Тарифы и лимиты</a> · <a href="https://neuraldeep.ru/benchmarks">Бенчмарки</a></li>
+          <li><a href="https://neuraldeep.ru/docs">Документация API</a> · <a href="https://neuraldeep.ru/learn">Гайды</a> · <a href="https://neuraldeep.ru/news">Новости</a> · <a href="https://neuraldeep.ru/business">Для бизнеса</a></li>
+        </ul>
+
+        <h2>Ссылки</h2>
+        <ul>
+          <li>Справка для AI-агентов (markdown): <a href="https://neuraldeep.ru/llms.txt">neuraldeep.ru/llms.txt</a> · полная: <a href="https://neuraldeep.ru/llms-full.txt">neuraldeep.ru/llms-full.txt</a></li>
+          <li>API: <a href="https://api.neuraldeep.ru/v1">api.neuraldeep.ru/v1</a> · Кабинет: <a href="https://neuraldeep.ru/app">neuraldeep.ru/app</a></li>
+          <li>Агент: <a href="https://neuraldeep.ru/driftagent">neuraldeep.ru/driftagent</a> · Транскрипция: <a href="https://speechcore.neuraldeep.ru">speechcore.neuraldeep.ru</a> · Статус: <a href="https://status.neuraldeep.ru">status.neuraldeep.ru</a></li>
+        </ul>
+      </main>
+    </div>
+  </body>
+</html>

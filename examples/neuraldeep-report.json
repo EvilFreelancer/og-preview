@@ -1,0 +1,103 @@
+{
+  "source": "examples/neuraldeep.ru.html",
+  "resolved": {
+    "title": "LLM-прокси для ваших агентов и проектов",
+    "desc": "Один base_url и один sk-ключ вместо зоопарка провайдеров: модели, AI-агент, поиск, OCR и картинки. Свои GPU в РФ, оплата в рублях, без VPN и зарубежных карт.",
+    "image": "https://neuraldeep.ru/og.png?v=5",
+    "site": "NeuralDeep Hub",
+    "og_url": "https://neuraldeep.ru/"
+  },
+  "image_dimensions": [
+    1200,
+    630
+  ],
+  "tags": [
+    {
+      "key": "viewport",
+      "content": "width=device-width, initial-scale=1.0"
+    },
+    {
+      "key": "theme-color",
+      "content": "#0a0a0a"
+    },
+    {
+      "key": "theme-color",
+      "content": "#fafafa"
+    },
+    {
+      "key": "description",
+      "content": "Прокси к LLM для ваших агентов, ботов и RAG-пайплайнов: OpenAI-совместимый API, один base_url и sk-ключ. qwen3.6, qwen3.8, embeddings, whisper — на своих GPU в РФ; gpt-oss, Gemma 4, Kimi, GLM, DeepSeek — через внешних вендоров. Оплата в рублях, без VPN и зарубежных карт."
+    },
+    {
+      "key": "keywords",
+      "content": "LLM прокси, LLM прокси Россия, LLM прокси РФ, прокси для агентов, прокси для LLM-агента, API для AI-агента, прокси для Cursor, прокси для Cline, LLM API Россия, API нейросетей Россия, OpenAI-совместимый API, LLM gateway, нейросети без VPN, оплата в рублях, self-hosted LLM РФ, доступ к нейросетям из России, gpt-oss, qwen3.6, Gemma, Kimi, GLM, DeepSeek, embeddings, whisper, AI-агент, RAG, 152-ФЗ"
+    },
+    {
+      "key": "og:type",
+      "content": "website"
+    },
+    {
+      "key": "og:site_name",
+      "content": "NeuralDeep Hub"
+    },
+    {
+      "key": "og:title",
+      "content": "LLM-прокси для ваших агентов и проектов"
+    },
+    {
+      "key": "og:description",
+      "content": "Один base_url и один sk-ключ вместо зоопарка провайдеров: модели, AI-агент, поиск, OCR и картинки. Свои GPU в РФ, оплата в рублях, без VPN и зарубежных карт."
+    },
+    {
+      "key": "og:url",
+      "content": "https://neuraldeep.ru/"
+    },
+    {
+      "key": "og:image",
+      "content": "https://neuraldeep.ru/og.png?v=5"
+    },
+    {
+      "key": "og:image:type",
+      "content": "image/png"
+    },
+    {
+      "key": "og:image:width",
+      "content": "1200"
+    },
+    {
+      "key": "og:image:height",
+      "content": "630"
+    },
+    {
+      "key": "og:image:alt",
+      "content": "NeuralDeep Hub — LLM-прокси для агентов и проектов"
+    },
+    {
+      "key": "og:locale",
+      "content": "ru_RU"
+    },
+    {
+      "key": "twitter:card",
+      "content": "summary_large_image"
+    },
+    {
+      "key": "twitter:title",
+      "content": "LLM-прокси для ваших агентов и проектов"
+    },
+    {
+      "key": "twitter:description",
+      "content": "Один base_url и один sk-ключ вместо зоопарка провайдеров: модели, AI-агент, поиск, OCR и картинки. Свои GPU в РФ, без VPN."
+    },
+    {
+      "key": "twitter:image",
+      "content": "https://neuraldeep.ru/og.png?v=5"
+    }
+  ],
+  "warnings": [
+    {
+      "severity": "info",
+      "platform": "linkedin",
+      "message": "LinkedIn description is cut around ~140-150 chars."
+    }
+  ]
+}
