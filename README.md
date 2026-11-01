@@ -26,6 +26,16 @@ python3 scripts/og_preview.py page.html --json report.json --out preview.html
 
 Exit code is `1` when errors are found, `0` otherwise - works as a CI gate.
 
+## Example report
+
+Rendered for [neuraldeep.ru](examples/neuraldeep.ru.html) - nine platform
+mocks plus the findings and tag tables:
+
+![OG preview report for neuraldeep.ru](examples/neuraldeep-preview.png)
+
+The same report as HTML: [examples/neuraldeep-preview.html](examples/neuraldeep-preview.html)
+(machine-readable findings: [neuraldeep-report.json](examples/neuraldeep-report.json)).
+
 ## When to use it
 
 - previewing social cards before deploying a page;
@@ -42,8 +52,22 @@ file per platform. A worked example (captured page + rendered report) lives in
 
 The repo root is the skill folder: copy or symlink it into your agent's skills
 directory (`~/.claude/skills/og-preview`, `~/.cursor/skills/og-preview`,
-`~/.agents/skills/og-preview`), or install via the
-[rpa-skills](https://github.com/EvilFreelancer/rpa-skills) marketplace.
+`~/.agents/skills/og-preview`).
+
+Part of the **[rpa-skills](https://github.com/EvilFreelancer/rpa-skills)**
+marketplace - the recommended way to install:
+
+```bash
+# Claude Code
+/plugin marketplace add EvilFreelancer/rpa-skills
+/plugin install og-preview@rpa-skills
+
+# Codex
+codex plugin marketplace add EvilFreelancer/rpa-skills
+
+# any agent with a skills folder
+git clone https://github.com/EvilFreelancer/og-preview ~/.agents/skills/og-preview
+```
 
 ## Source & attribution
 
